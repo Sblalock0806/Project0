@@ -1,10 +1,8 @@
 package org.example;
-
 import org.example.Exception.BookException;
 import org.example.Exception.MainException;
 import org.example.Model.BookEntry;
 import org.example.Service.BookService;
-
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -92,6 +90,7 @@ public class Main {
 // Delete Method
             else if (userInput.equals("DELETE") || userInput.equals("D")) {
                 Main.log.info("request to delete a book by title");
+                Main.log.info("test test to delete a book by title");
                 System.out.println("Enter the full book title you would like to delete:");
                 String deleteTitle = sc.nextLine();
                 Main.log.info("deleting " + deleteTitle);
