@@ -1,15 +1,26 @@
-My Project will be to create a Library system which will allow users to do the below:
-Basic requirements:
- -- Add books to the list
- -- Search for items in the list by Author, Title, partial title or partial author
- -- View the entire list of the books sorted alphabetically by authors last name
- -- Remove a book
+Project Title: Project0
+
+Project Description: This a Java/Maven project which allows the user to track the books they have read. The user will be allowed to 
+    do the below items from the Main Class:
+
+        1- Add(A) - Add a book including the book title, Author, Genre, rating, and timestamp of when the book 
+                       was entered.
+
+        2- View(V) - View all the books stored in an array list. The view automatically sorts all books by the title.
+
+        3- Search(S) - Search the list of books based on the title, author, genre, or rating. The search will pull 
+                        any exact matches or all partial matches.
+
+        4- Import(I) - Ability to import a .csv file that contains book title, Author, Genre, rating. When prompted 
+                        the user will input the full filepath to the csv file.
+
+        5- Delete(D) - Ability to remove any books from the list based on the book title.
+
+The associated pom.xml contains the necessary dependencies needed to run this application.
+
+Comments on how each method works is stored within the individual classes in the Model, Exception, and Service packages
+
+
  
 
-
-Items I would like to do:
- -- Create initial list based off top 100 books pulled from the internet and placed in text file or excel...
- -- Ability to note when a book is 'checked out' include timestamp
- -- Ability to 'check a book back in' making it available
- -- Ability to produce a Status of Available or not Available depending on whether the book is checked out or not
 

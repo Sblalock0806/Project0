@@ -1,106 +1,90 @@
 package org.example.Model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class BookEntry {
 
-    public class NoteEntry {
-        private String bookTitle;
-        private String authorFname;
-        private String authorLname;
-        private Timestamp checkInTime;
-        private Timestamp checkOutTime;
-        private String bookStatus;
+    private String title;
+    private String author;
+    private String genre;
 
-        public NoteEntry(String bookTitle, String authorFname, String authorLname)
-        {
-            this.bookTitle = bookTitle;
-            this.authorFname = authorFname;
-            this.authorLname = authorLname;
-// if I don't have a timestamp provided, I have a choice (as a developer) to choose
-// between leaving time null or setting the time to the current time here.
-        }
+    private int rating;
 
-        public NoteEntry(String bookTitle, String authorFname, String authorLname, Timestamp checkInTime, Timestamp checkOutTime, String bookStatus )
-        {
-            this.bookTitle = bookTitle;
-            this.authorFname = authorFname;
-            this.authorLname = authorLname;
-            this.checkInTime = checkInTime;
-            this.checkOutTime = checkOutTime;
-            this.bookStatus = bookStatus;
-        }
+    //Set the current timestamp when the book gets created
+    private LocalDateTime timestamp;
+    private int numberOfBooks;
 
-        public void setBookTitle(String bookTitle)
-        {
-            this.bookTitle = bookTitle;
-        }
+    //Field to add timestamp and to set the format o
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        public void setauthorFname(String authorFname)
+    public BookEntry(String bookTitle, String author, String genre, int rating)
         {
-            this.authorFname = authorFname;
-        }
+            this.title = bookTitle;
+            this.author = author;
+            this.genre = genre;
+            this.rating= rating;
+            this.timestamp = LocalDateTime.now();
 
-        public void setauthorLname(String authorLname)
-        {
-            this.authorLname = authorLname;
         }
-
-        public void setcheckInTime(Timestamp checkInTime)
-        {
-            this.checkInTime = checkInTime;
-        }
-        public void secheckOutTime(Timestamp checkOutTime)
-        {
-            this.checkOutTime = checkOutTime;
-        }
-
-        public void setbookStatus(String bookStatus)
-        {
-            this.bookStatus = bookStatus;
-        }
-
-        public String setBookTitle()
-        {
-            return bookTitle;
-        }
-
-        public String setauthorFname()
-        {
-            return authorFname;
-        }
-
-        public String setauthorLname()
-        {
-            return authorLname;
-        }
-        public Timestamp setcheckInTime()
-        {
-            return checkInTime;
-        }
-
-        public Timestamp setcheckOutTime()
-        {
-            return checkOutTime;
-        }
-
-        public String setbookStatus()
-        {
-            return bookStatus;
-        }
-
-        @Override
-        public String toString() {
-            return "NoteEntry{" +
-                    "bookTitle='" + bookTitle + '\'' +
-                    ", authorFname='" + authorFname + '\'' +
-                    ", authorLname='" + authorLname + '\'' +
-                    ", checkInTime=" + checkInTime +
-                    ", checkOutTime=" + checkOutTime +
-                    ", bookStatus='" + bookStatus + '\'' +
-                    '}';
-        }
+    public int getRating() {
+        return rating;
     }
+    public void setRating(int rating) {
+        this.rating = rating;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getNumberOfBooks() {
+        return numberOfBooks;
+    }
+
+    public void setNumberOfBooks(int numberOfBooks) {
+        this.numberOfBooks = numberOfBooks;
+    }
+
+    @Override
+    public String toString() {
+        return "BookEntry{" +
+                "title='" + title + '\n' +
+                ", author='" + author + '\n' +
+                ", genre='" + genre + '\n' +
+                ", rating=" + rating + '\n'+
+                ", timestamp=" + timestamp + '\n'+
+                '}'+ '\n';
+    }
+}
+
 
 
