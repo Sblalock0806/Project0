@@ -27,7 +27,14 @@ public class Main {
         boolean flag = true;
 
         while (flag) {
-            System.out.println("Please type what you would like to do: Add(A), View(V), Search (S), Import a .csv file with your book list(I) or Delete (D)" + '\n'+ "or press any other key to exit" );
+            System.out.println("Please type what you would like to do: " + '\n' +
+                    "Add(A) " + '\n' +
+                    "View(V)" + '\n' +
+                    "Search (S)" + '\n' +
+                    "Import a .csv file with your book list(I)" + '\n' +
+                    "Delete (D)" + '\n'+
+                    "Exit Program (press any other key)" );
+
             String userInput = sc.nextLine().toUpperCase();
 
 //Add Book method
