@@ -35,7 +35,6 @@ public class BookServiceTest {
         Assert.assertTrue(bookList.size() == 0);
     }
 
-
     /*
      * The getClass.etc retrieves the test csv file from the resources' folder.  It then uses the absolute path of the file to pass the loadInitialBooksFromCSV method.
      * An absolute path makes no assumption about your current location in relation to the location of the file
@@ -62,6 +61,8 @@ public class BookServiceTest {
         assertEquals(1, bookService.getBookList().size());
     }
 
+
+
     //Search Book Test
     @Test
        public void testSearchBooks() throws BookException {
@@ -72,6 +73,19 @@ public class BookServiceTest {
         List<String> searchResults = bookService.searchBooks("title", "testBook1");
 
         assertEquals(1, searchResults.size());
+
+    }
+
+    //test search for no book found
+    @Test
+    public void testMissingSearchBooks() throws BookException {
+        bookService.addBook("testBook1", "testAuthor1", "testGenre1", 1);
+        bookService.addBook("testBook2", "testAuthor2", "testGenre2", 2);
+        bookService.addBook("NegativeTest", "testAuthor3", "testGenre3", 3);
+
+        List<String> searchResults = bookService.searchBooks("title", "testBook5");
+
+        assertEquals(0, searchResults.size());
 
     }
     // Delete Book Test

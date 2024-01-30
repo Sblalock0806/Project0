@@ -4,12 +4,17 @@ import org.example.Exception.BookException;
 import org.example.Main;
 import org.example.Model.BookEntry;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.print.Book;
+import java.io.*;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import static java.lang.String.valueOf;
 
 public class BookService {
     List<BookEntry> bookList;
@@ -32,13 +37,13 @@ public class BookService {
                 throw new BookException("Rating must be between 1 and 5");
             } else if (title.length() < 1) {
                 Main.log.warn("throwing Book exception due to miss-formatted title: " + title);
-                throw new BookException("title is blank");
+                throw new BookException("Title is blank");
             } else if (author.length() < 1) {
-                Main.log.warn("throwing book exception due to miss-formatted instructions: " + author);
-                throw new BookException("instructions is blank");
+                Main.log.warn("throwing book exception due to miss-formatted author: " + author);
+                throw new BookException("Author is blank");
             } else if (genre.length() < 1) {
-                Main.log.warn("throwing book exception due to miss-formatted instructions: " + genre);
-                throw new BookException("instructions is blank");
+                Main.log.warn("throwing book exception due to miss-formatted genre: " + genre);
+                throw new BookException("Genre is blank");
             }
             BookEntry book = new BookEntry(title, author, genre, rating);
             bookList.add(book);
@@ -77,17 +82,13 @@ public class BookService {
 
 // Check the search criteria and set the attribute to lower case
             if ("title".equalsIgnoreCase(searchCriteria) || "t".equalsIgnoreCase(searchCriteria)) {
-                Main.log.info("Searching for a book by title and keyword, " + searchValueLowerCase);
                 attributeLowerCase = book.getTitle().toLowerCase();
             } else if ("author".equalsIgnoreCase(searchCriteria) || "a".equalsIgnoreCase(searchCriteria)) {
-                Main.log.info("Searching for a book by author and keyword, " + searchValueLowerCase);
                 attributeLowerCase = book.getAuthor().toLowerCase();
             } else if ("genre".equalsIgnoreCase(searchCriteria) || "g".equalsIgnoreCase(searchCriteria)) {
-                Main.log.info("Searching for a book by genre and keyword, " + searchValueLowerCase);
                 attributeLowerCase = book.getGenre().toLowerCase();
             } else if ("rating".equalsIgnoreCase(searchCriteria) || "r".equalsIgnoreCase(searchCriteria)) {
-                Main.log.info("Searching for a rating by title and keyword, " + searchValueLowerCase);
-                attributeLowerCase = String.valueOf(book.getRating()).toLowerCase();
+                attributeLowerCase = valueOf(book.getRating()).toLowerCase();
             } else {
                 Main.log.info("Search criteria used is not valid");
                 System.out.println("Invalid Search Criteria.");
@@ -145,4 +146,50 @@ public class BookService {
             System.out.println(" Error reading csv file: " + e.getMessage());
         }
     }
-}
+
+//        public void exportToCSV (String filePath){
+//            try {
+//                FileWriter csvWriter = new FileWriter(filePath);
+//                csvWriter.append("Title,Author,Genre,Rating\n");
+//
+//                for (BookEntry book : bookList) {
+//                    csvWriter.write(book.getTitle() + ",");
+//                    csvWriter.write(book.getAuthor() + ",");
+//                    csvWriter.write(book.getGenre() + ",");
+//                    csvWriter.write(String.valueOf(book.getRating()));
+//                    csvWriter.write("\n");
+//                }
+//
+//                csvWriter.flush();
+//                csvWriter.close();
+//                System.out.println("CSV File created successfully.");
+//            }catch (IOException e) {
+//                System.out.println("An error occured while creating the CSV file." + e.getMessage());
+//            }
+//    }
+
+    public void exportToCSV (String filePath){
+        try {
+            FileWriter csvWriter = new FileWriter(filePath);
+            File creatfile = new File(filePath);
+            csvWriter.append("Title,Author,Genre,Rating\n");
+
+            for (BookEntry book : bookList) {
+                csvWriter.write(book.getTitle() + ",");
+                csvWriter.write(book.getAuthor() + ",");
+                csvWriter.write(book.getGenre() + ",");
+                csvWriter.write(String.valueOf(book.getRating()));
+                csvWriter.write("\n");
+            }
+            creatfile.createNewFile();
+            csvWriter.flush();
+            csvWriter.close();
+            System.out.println("CSV File created successfully.");
+        }catch (IOException e) {
+            System.out.println("An error occurred while creating the CSV file." + e.getMessage());
+        }
+    }
+
+        }
+
+

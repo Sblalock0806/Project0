@@ -4,23 +4,25 @@ import org.example.Exception.MainException;
 import org.example.Model.BookEntry;
 import org.example.Service.BookService;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+//File for Demo
+// C:\Users\U43SGB\OneDrive - Government Employees Insurance Company\Documents\project_0_test_lists.csv
+//exception case -- "C:\Users\U43SGB\OneDrive - Government Employees Insurance Company\Documents\project_0_test_lists_exception_case.csv"
 public class Main {
     public static Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws FileNotFoundException, BookException, MainException {
-        System.out.println("Hello and Welcome to my Reading tracker app! You will be able to add, search, view all books, import an list from a .csv file, and delete books.");
+        System.out.println("Hello and Welcome to my Reading tracker app! You will be able to add, search, view all books, import an list from a .csv file, export your list to .csv file and delete books.");
 
 /// Instantiating the use of BookService into Main
 /// Lowercase bookService is the new variable to use BookService
         BookService bookService = new BookService();
-
         Scanner sc = new Scanner(System.in);
         boolean flag = true;
 
@@ -30,6 +32,7 @@ public class Main {
                     "View(V)" + '\n' +
                     "Search (S)" + '\n' +
                     "Import a .csv file with your book list(I)" + '\n' +
+                    "Export a .csv file of your book list(E)" + '\n' +
                     "Delete (D)" + '\n'+
                     "Exit Program (press any other key)" );
 
@@ -53,7 +56,6 @@ public class Main {
                         String genreInput = sc.nextLine();
                         System.out.println("Please Input a Rating (1 through 5)");
                         String ratingInput = sc.nextLine();
-                        Main.log.info("Attempting to add a book." + titleInput + ", " + authorInput + ", " + genreInput + ", " + ratingInput);
                         bookService.addBook(titleInput, authorInput, genreInput, Integer.parseInt(ratingInput));
                         System.out.println("Book added Successfully!");
                     }
@@ -63,7 +65,7 @@ public class Main {
                     sc.nextLine();
                 } catch (Exception e) {
                     Main.log.warn("Exception generated.");
-                    System.out.println(" An unexpected error has occured: " + e.getMessage());
+                    System.out.println(" An unexpected error has occurred: " + e.getMessage());
                 }
             }
 
@@ -83,7 +85,7 @@ public class Main {
                 Main.log.info("searching list by " + criteria);
                 System.out.println("What " + criteria + " are you searching for:  ");
                 String value = sc.nextLine();
-                Main.log.info("searching list by " + criteria + " and " + value);
+                Main.log.info("searching list by " + criteria + " and '" + value +"'.");
                 bookService.searchBooks(criteria, value);
             }
 
@@ -104,7 +106,18 @@ public class Main {
                 String importList = sc.nextLine();
                 bookService.loadInitialBooksFromCSV(importList);
                 Main.log.info("csv file imported");
-            } else {
+            }
+// Export to .csv file
+            else if (userInput.equals("EXPORT") || userInput.equals("E")) {
+                Main.log.info("request to export csv file");
+                System.out.println("Please enter the file path for the csv file you would like to export:");
+                System.out.println("example: C:\\Users\\U43SGB\\Documents\\testfile.csv");
+                String exportFilePath = sc.nextLine();
+                bookService.exportToCSV(exportFilePath);
+                Main.log.info("csv file exported");
+            }
+
+            else {
                 Main.log.info("Invalid input entered." + userInput);
                 throw new MainException("not a valid command. Please rerun the program");
 
